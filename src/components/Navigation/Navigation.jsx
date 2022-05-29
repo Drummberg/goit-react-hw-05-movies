@@ -1,20 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { StyleLink, MenuUl } from './Navigation.styled';
 
 const Navigation = () => {
   return (
-    <ul>
+    <MenuUl>
       <li>
-        <NavLink to="/" className="NavLink" activeClassName="selected">
+        <StyleLink
+          exact
+          to="/"
+          activeStyle={{ fontWeight: 'bold', color: 'orange' }}
+        >
           Home
-        </NavLink>
+        </StyleLink>
       </li>
       <li>
-        <NavLink to="/movies" className="NavLink" activeClassName="selected">
+        <StyleLink
+          exact
+          to="/movies"
+          activeStyle={{ fontWeight: 'bold', color: 'orange' }}
+        >
           Movies
-        </NavLink>
+        </StyleLink>
       </li>
-    </ul>
+    </MenuUl>
   );
 };
 
