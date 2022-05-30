@@ -21,7 +21,7 @@ class MoviesPage extends Component {
   }
 
   onHandleChange = event => {
-    this.setState({ query: event.target.value });
+    this.setState({ query: event.target.value.toLowerCase() });
   };
 
   onFindMovies = () => {
@@ -41,15 +41,17 @@ class MoviesPage extends Component {
     const { movies } = this.state;
     return (
       <>
-        <Form>
+        <Form onSubmit={this.onFindMovies}>
           <input
             type="text"
+            name="name"
             value={this.state.query}
             onChange={this.onHandleChange}
+            autoComplete="off"
+            autoFocus
+            placeholder="Search movie"
           />
-          <Button type="submit" onClick={this.onFindMovies}>
-            Search
-          </Button>
+          <Button type="submit">Search</Button>
           {movies.length > 0 && (
             <MovieList movies={movies} query={this.state.query} />
           )}

@@ -7,9 +7,7 @@ const MovieList = ({ movies }) => {
     <ul>
       {movies.map(({ id, title, name }) => (
         <li key={id}>
-          <StyleLink to={{ pathname: `movies/${id}` }}>
-            {title ? title : name}
-          </StyleLink>
+          <StyleLink to={`movies/${id}`}>{title ? title : name}</StyleLink>
         </li>
       ))}
     </ul>

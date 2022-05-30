@@ -10,9 +10,9 @@ const fetchPopularMovies = async () => {
   return data.results;
 };
 
-const fetchMoviesName = async value => {
+const fetchMoviesName = async query => {
   const { data } = await axios.get(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${value}&page=1&include_adult=false`,
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
   );
   return data.results;
 };

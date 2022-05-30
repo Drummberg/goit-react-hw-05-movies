@@ -11,6 +11,11 @@ const MoviesPage = lazy(() =>
   import('./views/MoviesPage/MoviesPage' /* webpackChunkName: "movies-page" */),
 );
 
+const MovieDetailsPage = lazy(() =>
+  import(
+    './views/MovieDetailsPage/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+  ),
+);
 const App = () => {
   return (
     <>
@@ -18,6 +23,7 @@ const App = () => {
       <Suspense fallback={<div>Loading...Please wait..</div>}>
         <Switch>
           <Route path="/" exact component={HomePage} />
+          <Route path="/movies/:movieId/*" component={MovieDetailsPage} />
           <Route path="/movies" exact component={MoviesPage} />
         </Switch>
       </Suspense>
