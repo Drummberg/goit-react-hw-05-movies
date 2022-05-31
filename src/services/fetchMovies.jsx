@@ -17,22 +17,22 @@ const fetchMoviesName = async query => {
   return data.results;
 };
 
-const fetchMovieById = async id => {
+const fetchMovieById = async movieId => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`,
+    `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`,
   );
   return response.data;
 };
-const fetchFilmCasts = async id => {
+const fetchFilmCasts = async movieId => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`,
+    `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`,
   );
   return response.data.cast;
 };
 
-const fetchFilmReviews = async id => {
+const fetchFilmReviews = async movieId => {
   const response = await axios.get(
-    `${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`,
+    `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`,
   );
   return response.data.results;
 };

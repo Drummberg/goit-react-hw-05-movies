@@ -4,7 +4,7 @@ import './App.css';
 import Navigation from './components/Navigation';
 
 const HomePage = lazy(() =>
-  import('./views/HomePage' /* webpackChunkName: "home-view" */),
+  import('./views/HomePage/HomePage' /* webpackChunkName: "home-view" */),
 );
 
 const MoviesPage = lazy(() =>
@@ -23,8 +23,8 @@ const App = () => {
       <Suspense fallback={<div>Loading...Please wait..</div>}>
         <Switch>
           <Route path="/" exact component={HomePage} />
-          <Route path="/movies/:movieId/*" component={MovieDetailsPage} />
           <Route path="/movies" exact component={MoviesPage} />
+          <Route path="/movies/:movieId" component={MovieDetailsPage} />
         </Switch>
       </Suspense>
     </>
