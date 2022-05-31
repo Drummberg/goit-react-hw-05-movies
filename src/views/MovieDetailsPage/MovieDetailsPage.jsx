@@ -12,6 +12,7 @@ import {
   Img,
 } from './MovieDetailsPage.styled';
 import Cast from '../../components/Cast/Cast';
+import Reviews from '../../components/Reviews/Reviews';
 import api from '../../services/fetchMovies';
 
 class MovieDetailsPage extends Component {
@@ -107,6 +108,12 @@ class MovieDetailsPage extends Component {
             path={`${this.props.match.path}/cast`}
             render={props => {
               return <Cast casts={this.state.casts} />;
+            }}
+          />
+          <Route
+            path={`${this.props.match.path}/reviews`}
+            render={props => {
+              return <Reviews reviews={this.state.reviews} />;
             }}
           />
         </Switch>

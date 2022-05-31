@@ -23,14 +23,14 @@ export const List = styled.li`
 `;
 
 export const Title = styled.p`
-  color: white;
+  color: blue;
   margin: 0;
   font-size: 14px;
   font-weight: 700;
 `;
 
 export const Char = styled.p`
-  color: white;
+  color: yellow;
   margin: 0;
   font-size: 14px;
   font-weight: 700;

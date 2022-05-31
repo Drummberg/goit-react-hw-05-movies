@@ -10,10 +10,10 @@ class MoviesPage extends Component {
   };
 
   componentDidMount() {
-    if (this.props.location.query) {
-      api.fetchMoviesName(this.props.location.query).then(films =>
+    if (this.query) {
+      api.fetchMoviesName(this.query).then(movies =>
         this.setState({
-          movies: [...films],
+          movies: [...movies],
           query: this.props.location.query,
         }),
       );
@@ -21,6 +21,7 @@ class MoviesPage extends Component {
   }
 
   onHandleChange = event => {
+    event.preventDefault();
     this.setState({ query: event.target.value.toLowerCase() });
   };
 
@@ -30,9 +31,9 @@ class MoviesPage extends Component {
       pathname: this.props.match.url,
       search: `query=${inputValue}`,
     });
-    api.fetchMoviesName(inputValue).then(films =>
+    api.fetchMoviesName(inputValue).then(movies =>
       this.setState({
-        movies: [...films],
+        movies: [...movies],
       }),
     );
   };
@@ -52,9 +53,7 @@ class MoviesPage extends Component {
             placeholder="Search movie"
           />
           <Button type="submit">Search</Button>
-          {movies.length > 0 && (
-            <MovieList movies={movies} query={this.state.query} />
-          )}
+          {movies.length > 0 && <MovieList movies={movies} />}
         </Form>
       </>
     );

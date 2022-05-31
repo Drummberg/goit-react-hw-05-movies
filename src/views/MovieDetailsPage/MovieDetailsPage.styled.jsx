@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export const Button = styled.button`
     position: absolute;
-    display: flex;
     padding: 5px;
+    font-size: 16px;
     width: 100px;
     margin-left: 10px;
     margin-bottom: 15px;
@@ -37,6 +37,7 @@ export const MovieGenres = styled.div`
 export const MovieGenresP = styled.p`
   margin-right: 15px;
   font-weight: 400;
+  margin-top: 0;
 `;
 export const MenuUl = styled.ul`
   display: flex;
@@ -76,6 +77,6 @@ export const StyleLink = styled(NavLink)`
 export const Img = styled.img`
   border-radius: 5px;
   margin-left: 20px;
-  margin-top: 35px;
+  margin-top: 40px;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.9);
 `;
