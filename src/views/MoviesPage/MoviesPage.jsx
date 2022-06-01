@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import MovieList from '../../components/MovieList/MovieList';
 import api from '../../services/fetchMovies';
 import { Button, Form } from './MoviesPage.styled';
@@ -22,20 +22,21 @@ class MoviesPage extends Component {
 
   onHandleChange = event => {
     event.preventDefault();
+
     this.setState({ query: event.target.value.toLowerCase() });
   };
 
   onFindMovies = () => {
     const inputValue = this.state.query;
+    api.fetchMoviesName(inputValue).then(films =>
+      this.setState({
+        movies: [...films],
+      }),
+    );
     this.props.history.push({
       pathname: this.props.match.url,
       search: `query=${inputValue}`,
     });
-    api.fetchMoviesName(inputValue).then(movies =>
-      this.setState({
-        movies: [...movies],
-      }),
-    );
   };
 
   render() {
@@ -45,7 +46,7 @@ class MoviesPage extends Component {
         <Form onSubmit={this.onFindMovies}>
           <input
             type="text"
-            name="name"
+            name="query"
             value={this.state.query}
             onChange={this.onHandleChange}
             autoComplete="off"
