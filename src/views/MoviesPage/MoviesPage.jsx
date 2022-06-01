@@ -10,8 +10,8 @@ class MoviesPage extends Component {
   };
 
   componentDidMount() {
-    if (this.query) {
-      api.fetchMoviesName(this.query).then(movies =>
+    if (this.state.query) {
+      api.fetchMoviesName(this.state.query).then(movies =>
         this.setState({
           movies: [...movies],
           query: this.props.location.query,
@@ -26,13 +26,15 @@ class MoviesPage extends Component {
     this.setState({ query: event.target.value.toLowerCase() });
   };
 
-  onFindMovies = () => {
+  onFindMovies = event => {
+    event.preventDefault();
     const inputValue = this.state.query;
     api.fetchMoviesName(inputValue).then(films =>
       this.setState({
         movies: [...films],
       }),
     );
+    console.log(this.state.movies);
     this.props.history.push({
       pathname: this.props.match.url,
       search: `query=${inputValue}`,
@@ -54,8 +56,8 @@ class MoviesPage extends Component {
             placeholder="Search movie"
           />
           <Button type="submit">Search</Button>
-          {movies.length > 0 && <MovieList movies={movies} />}
         </Form>
+        {movies.length > 0 && <MovieList movies={movies} />}
       </>
     );
   }

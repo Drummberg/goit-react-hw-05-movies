@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const StyleLink = styled(NavLink)`
+  display: block;
   color: black;
   font-size: 16px;
   font-weight: 400;
