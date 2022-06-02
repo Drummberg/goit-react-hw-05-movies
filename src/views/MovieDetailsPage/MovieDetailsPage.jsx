@@ -5,6 +5,7 @@ import {
   Switch,
   useLocation,
   useRouteMatch,
+  useHistory,
 } from 'react-router-dom';
 import {
   Button,
@@ -36,12 +37,16 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const match = useRouteMatch();
   const poster = `https://image.tmdb.org/t/p/w300${poster_path}`;
+  const history = useHistory();
 
   useEffect(() => {
     api.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
-  function buttonBack() {}
+  console.log(location);
+  function buttonBack() {
+    history.push(location.state.from);
+  }
 
   return (
     <>
@@ -68,18 +73,20 @@ export default function MovieDetailsPage() {
         <MenuUl>
           <li>
             <StyleLink
-              to={`${match.url}/cast`}
-              state={{ from: location }}
-              activeStyle={{ fontWeight: 'bold', color: 'orange' }}
+              to={{
+                pathname: `${match.url}/cast`,
+                state: { from: location.state.from },
+              }}
             >
               Cast
             </StyleLink>
           </li>
           <li>
             <StyleLink
-              to={`${match.url}/reviews`}
-              state={{ from: location }}
-              activeStyle={{ fontWeight: 'bold', color: 'orange' }}
+              to={{
+                pathname: `${match.url}/reviews`,
+                state: { from: location.state.from },
+              }}
             >
               Reviews
             </StyleLink>
@@ -94,49 +101,3 @@ export default function MovieDetailsPage() {
     </>
   );
 }
-
-// import React, { Component } from 'react';
-// import { Route, Switch } from 'react-router-dom';
-// import {
-//   Button,
-//   MovieCont,
-//   MovieAbout,
-//   MovieGenres,
-//   MovieGenresP,
-//   MenuUl,
-//   Links,
-//   StyleLink,
-//   Img,
-// } from './MovieDetailsPage.styled';
-// import Cast from '../../components/Cast/Cast';
-// import Reviews from '../../components/Reviews/Reviews';
-// import api from '../../services/fetchMovies';
-
-// class MovieDetailsPage extends Component {
-//   state = {
-//     movie: {},
-//     query: '',
-//     casts: [],
-//     reviews: [],
-//     from: '',
-//   };
-
-//     this.setState({
-//       from: this.props.location.state?.from,
-//       query: this.props.location.state?.query,
-//     });
-//   }
-
-//   buttonBack = () => {
-//     const { history } = this.props;
-//     history.goBack();
-//   };
-
-//   render() {
-//     const { title, vote_average, overview, genres, poster_path } =
-//       this.state.movie;
-//
-//
-// }
-
-// export default MovieDetailsPage;

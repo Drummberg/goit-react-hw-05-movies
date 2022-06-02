@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Button = styled.button`
     position: absolute;
@@ -58,7 +58,7 @@ export const Links = styled.div`
   font-weight: 700;
 `;
 
-export const StyleLink = styled(NavLink)`
+export const StyleLink = styled(Link)`
     padding-bottom: 12px;
   color: black;
   font-size: 18px;
@@ -68,6 +68,9 @@ export const StyleLink = styled(NavLink)`
   text-decoration: none;
   list-style: none;
   margin-right: 20px;
+  &:active{
+      color: orange;
+  }
     &:hover {
     cursor: pointer;
     color: red;

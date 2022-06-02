@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const StyleLink = styled(NavLink)`
+export const StyleLink = styled(Link)`
   display: block;
   color: black;
   font-size: 16px;

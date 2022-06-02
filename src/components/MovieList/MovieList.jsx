@@ -1,9 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { StyleLink, Li, Img, Ul } from './MovieList.styled';
 import notfound from '../../images/notfound.png';
 
-const MovieList = ({ movies }) => {
+export default function MovieList({ movies }) {
+  const location = useLocation();
   return (
     <Ul>
       {movies.map(({ id, title, name, poster_path }) => {
@@ -11,12 +13,26 @@ const MovieList = ({ movies }) => {
         return (
           <Li key={id}>
             <Img src={poster_path ? poster : notfound} alt={name} />
-            <StyleLink to={`/movies/${id}`}>{title ? title : name}</StyleLink>
+            <StyleLink
+              to={{
+                pathname: `/movies/${id}`,
+                state: { from: location },
+              }}
+            >
+              {title ? title : name}
+            </StyleLink>
           </Li>
         );
       })}
     </Ul>
   );
-};
+}
 
-export default withRouter(MovieList);
+MovieList.propTypes = {
+  movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+  }),
+};
