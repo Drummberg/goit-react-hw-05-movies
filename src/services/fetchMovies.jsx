@@ -27,7 +27,7 @@ const fetchFilmCasts = async movieId => {
   const response = await axios.get(
     `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`,
   );
-  return response.data.casts;
+  return response.data.cast;
 };
 
 const fetchFilmReviews = async movieId => {

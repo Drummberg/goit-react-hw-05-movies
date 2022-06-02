@@ -34,9 +34,8 @@ export default function MovieDetailsPage() {
   const { title, vote_average, overview, genres, poster_path } = movie;
   const location = useLocation();
   const { movieId } = useParams();
-  const match = useRouteMatch;
+  const match = useRouteMatch();
   const poster = `https://image.tmdb.org/t/p/w300${poster_path}`;
-  console.log(match);
 
   useEffect(() => {
     api.fetchMovieById(movieId).then(setMovie);
@@ -69,7 +68,7 @@ export default function MovieDetailsPage() {
         <MenuUl>
           <li>
             <StyleLink
-              to={`cast`}
+              to={`${match.url}/cast`}
               state={{ from: location }}
               activeStyle={{ fontWeight: 'bold', color: 'orange' }}
             >
@@ -78,7 +77,7 @@ export default function MovieDetailsPage() {
           </li>
           <li>
             <StyleLink
-              to={`reviews`}
+              to={`${match.url}/reviews`}
               state={{ from: location }}
               activeStyle={{ fontWeight: 'bold', color: 'orange' }}
             >
@@ -89,8 +88,8 @@ export default function MovieDetailsPage() {
       </Links>
       <Suspense fallback={<div>Loading...Please wait..</div>}></Suspense>
       <Switch>
-        <Route path="/cast" exact component={Casts} />
-        <Route path="/review" component={Reviews} />
+        <Route path={`${match.path}/cast`} exact component={Casts} />
+        <Route path={`${match.path}/reviews`} component={Reviews} />
       </Switch>
     </>
   );

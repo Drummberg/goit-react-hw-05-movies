@@ -7,6 +7,7 @@ import { Img, Ul, List, Title, Char } from './Casts.styled';
 export default function Casts() {
   const [casts, setCasts] = useState([]);
   const { movieId } = useParams();
+  const url = `https://image.tmdb.org/t/p/w200`;
 
   useEffect(() => {
     api.fetchFilmCasts(movieId).then(setCasts);
@@ -15,16 +16,16 @@ export default function Casts() {
   return (
     <>
       <Ul>
-        {casts.map(({ id, profile_path, name, character }) => {
-          const profile = `https://image.tmdb.org/t/p/w200${profile_path}`;
-          return (
-            <List key={id}>
-              <Img src={profile_path ? profile : notfound} alt={name} />
-              <Title>{name}</Title>
-              <Char>{character}</Char>
-            </List>
-          );
-        })}
+        {casts.map(({ id, profile_path, name, character }) => (
+          <List key={id}>
+            <Img
+              src={profile_path ? `${url}${profile_path}` : notfound}
+              alt={name}
+            />
+            <Title>{name}</Title>
+            <Char>{character}</Char>
+          </List>
+        ))}
       </Ul>
     </>
   );
