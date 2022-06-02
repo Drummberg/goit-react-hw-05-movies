@@ -1,8 +1,17 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '../../services/fetchMovies';
 import notfound from '../../images/notfound.png';
-import { Img, Ul, List, Title, Char } from './Cast.styled';
+import { Img, Ul, List, Title, Char } from './Casts.styled';
 
-const Cast = ({ casts }) => {
+export default function Casts() {
+  const [casts, setCasts] = useState([]);
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    api.fetchFilmCasts(movieId).then(setCasts);
+  }, [movieId]);
+
   return (
     <>
       <Ul>
@@ -19,6 +28,4 @@ const Cast = ({ casts }) => {
       </Ul>
     </>
   );
-};
-
-export default Cast;
+}

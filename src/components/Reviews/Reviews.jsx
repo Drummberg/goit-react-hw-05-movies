@@ -1,8 +1,17 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '../../services/fetchMovies';
 import { Ul, Img, List, Pi } from './Reviews.styled';
 import notfound from '../../images/notfound.png';
 
-const Reviews = ({ reviews }) => {
+export default function Reviews() {
+  const [reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    api.fetchFilmReviews(movieId).then(setReviews);
+  }, [movieId]);
+
   return (
     <>
       {reviews.length > 0 ? (
@@ -23,8 +32,4 @@ const Reviews = ({ reviews }) => {
       )}
     </>
   );
-};
-
-export default Reviews;
-
-// id, author, content, author_details: { avatar_path
+}
