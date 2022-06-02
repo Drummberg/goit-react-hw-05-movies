@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import MovieList from '../../components/MovieList/MovieList';
 import api from '../../services/fetchMovies';
-import { Button, Form } from './MoviesPage.styled';
+import { Button, Form, MovieCont } from './MoviesPage.styled';
 
 class MoviesPage extends Component {
   state = {
     movies: [],
     query: '',
+    from: '',
   };
 
   componentDidMount() {
@@ -14,7 +15,8 @@ class MoviesPage extends Component {
       api.fetchMoviesName(this.state.query).then(movies =>
         this.setState({
           movies: [...movies],
-          query: this.props.location.query,
+          from: this.props.location.state?.from,
+          query: this.props.location.state?.query,
         }),
       );
     }
@@ -34,7 +36,7 @@ class MoviesPage extends Component {
         movies: [...films],
       }),
     );
-    console.log(this.state.movies);
+
     this.props.history.push({
       pathname: this.props.match.url,
       search: `query=${inputValue}`,
@@ -45,18 +47,20 @@ class MoviesPage extends Component {
     const { movies } = this.state;
     return (
       <>
-        <Form onSubmit={this.onFindMovies}>
-          <input
-            type="text"
-            name="query"
-            value={this.state.query}
-            onChange={this.onHandleChange}
-            autoComplete="off"
-            autoFocus
-            placeholder="Search movie"
-          />
-          <Button type="submit">Search</Button>
-        </Form>
+        <MovieCont>
+          <Form onSubmit={this.onFindMovies}>
+            <input
+              type="text"
+              name="query"
+              value={this.state.query}
+              onChange={this.onHandleChange}
+              autoComplete="off"
+              autoFocus
+              placeholder="Search movie"
+            />
+            <Button type="submit">Search</Button>
+          </Form>
+        </MovieCont>
         {movies.length > 0 && <MovieList movies={movies} />}
       </>
     );

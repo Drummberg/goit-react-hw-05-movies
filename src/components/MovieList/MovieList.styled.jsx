@@ -36,6 +36,6 @@ export const Ul = styled.ul`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background-color: grey;
-  padding-top: 20px;
+  padding-top: 50px;
   margin: 0;
 `;
