@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import {
+  useLocation,
+  useHistory,
+  useRouteMatch,
+  useParams,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { StyleLink, Li, Img, Ul } from './MovieList.styled';
 import notfound from '../../images/notfound.png';
@@ -9,16 +14,18 @@ export default function MovieList({ movies }) {
   const location = useLocation();
   const match = useRouteMatch();
   const history = useHistory();
+  const params = useParams();
+
+  console.log(params);
 
   useEffect(() => {
-    console.log(location);
     if (query) {
       setQuery(query);
     }
 
     history.push({
       pathname: `${match.url}`,
-      // search: `query=${query}`,
+      search: `query=${query}`,
       state: {
         from: location,
       },
@@ -35,7 +42,6 @@ export default function MovieList({ movies }) {
             <StyleLink
               to={{
                 pathname: `/movies/${id}`,
-                search: `query=${query}`,
                 state: { from: location },
               }}
               // to={{

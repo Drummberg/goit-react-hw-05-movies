@@ -35,20 +35,20 @@ export default function MovieDetailsPage() {
   const { title, vote_average, overview, genres, poster_path } = movie;
   const location = useLocation();
   const { movieId } = useParams();
+
   const match = useRouteMatch();
   const poster = `https://image.tmdb.org/t/p/w300${poster_path}`;
   const history = useHistory();
 
+  // console.log(params);
   useEffect(() => {
     api.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
-  console.log(location);
-
   function buttonBack() {
     history.push(location.state.from);
   }
-
+  //  console.log(match);
   return (
     <>
       <MovieCont>
@@ -73,12 +73,22 @@ export default function MovieDetailsPage() {
       <Links>
         <MenuUl>
           <li>
-            <StyleLink to={`${match.url}/cast`} state={{ from: location }}>
+            <StyleLink
+              to={{
+                pathname: `${match.url}/cast`,
+                state: { from: location },
+              }}
+            >
               Cast
             </StyleLink>
           </li>
           <li>
-            <StyleLink to={`${match.url}/reviews`} state={{ from: location }}>
+            <StyleLink
+              to={{
+                pathname: `${match.url}/reviews`,
+                state: { from: location },
+              }}
+            >
               Reviews
             </StyleLink>
           </li>
