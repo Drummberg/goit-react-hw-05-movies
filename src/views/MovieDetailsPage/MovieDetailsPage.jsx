@@ -1,4 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
+import PropTypes from 'prop-types';
 import {
   useParams,
   Route,
@@ -40,7 +41,6 @@ export default function MovieDetailsPage() {
   const poster = `https://image.tmdb.org/t/p/w300${poster_path}`;
   const history = useHistory();
 
-  // console.log(params);
   useEffect(() => {
     api.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
@@ -48,7 +48,7 @@ export default function MovieDetailsPage() {
   function buttonBack() {
     history.push(location.state.from);
   }
-  //  console.log(match);
+
   return (
     <>
       <MovieCont>
@@ -102,3 +102,7 @@ export default function MovieDetailsPage() {
     </>
   );
 }
+
+MovieDetailsPage.propTypes = {
+  onClick: PropTypes.func,
+};

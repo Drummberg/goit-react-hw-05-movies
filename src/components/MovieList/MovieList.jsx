@@ -16,8 +16,6 @@ export default function MovieList({ movies }) {
   const history = useHistory();
   const params = useParams();
 
-  console.log(params);
-
   useEffect(() => {
     if (query) {
       setQuery(query);
@@ -44,10 +42,6 @@ export default function MovieList({ movies }) {
                 pathname: `/movies/${id}`,
                 state: { from: location },
               }}
-              // to={{
-              //       pathname: `/movies/${id}`,
-              //       state:{ from: location }
-              // }}
             >
               {title ? title : name}
             </StyleLink>
