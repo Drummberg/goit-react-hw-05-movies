@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  useLocation,
-  useHistory,
-  useRouteMatch,
-  useParams,
-} from 'react-router-dom';
+import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { StyleLink, Li, Img, Ul } from './MovieList.styled';
 import notfound from '../../images/notfound.png';
