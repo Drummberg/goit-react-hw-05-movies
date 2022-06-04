@@ -14,7 +14,6 @@ export default function MovieList({ movies }) {
   const location = useLocation();
   const match = useRouteMatch();
   const history = useHistory();
-  const params = useParams();
 
   useEffect(() => {
     if (query) {

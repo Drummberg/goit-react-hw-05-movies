@@ -1,28 +1,27 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import MovieList from '../../components/MovieList/MovieList';
 import api from '../../services/fetchMovies';
 
-class HomePage extends Component {
-  state = {
-    movies: [],
-  };
+export default function HomePage() {
+  const [movies, setMovie] = useState([]);
 
-  componentDidMount() {
-    api.fetchPopularMovies().then(movies =>
-      this.setState({
-        movies: [...movies],
-      }),
-    );
-  }
+  useEffect(() => {
+    api.fetchPopularMovies().then(movies => setMovie(movies));
+  }, []);
 
-  render() {
-    const { movies } = this.state;
-    return (
-      <>
-        <MovieList movies={movies} />
-      </>
-    );
-  }
+  return (
+    <>
+      <MovieList movies={movies} />
+    </>
+  );
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  movies: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+  }),
+};
