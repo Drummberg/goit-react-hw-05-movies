@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import {
+  useLocation,
+  useParams,
+  useHistory,
+  useRouteMatch,
+} from 'react-router-dom';
 import MovieList from '../../components/MovieList/MovieList';
 import api from '../../services/fetchMovies';
 import { Button, Form, MovieCont } from './MoviesPage.styled';
@@ -8,33 +13,37 @@ export default function MoviesPage() {
   const location = useLocation();
   const [query, setQuery] = useState('');
   const [movies, setMovie] = useState([]);
-  const params = useParams();
+  const history = useHistory();
+  const { movieId } = useParams();
+  const match = useRouteMatch();
 
-  console.log(params);
   useEffect(() => {
+    if (query.trim() === '') {
+      return;
+    }
+
     const fetchMoviesName = () => {
-      api.getData(`'movies'/${params.id}`).then(movies => setMovie(...movies));
+      api.get(`'movies'/${query}`).then(films => setMovie(films));
     };
+
     fetchMoviesName();
-  }, [params.id]);
+  }, [movieId]);
 
   function onFindMovies(event) {
     event.preventDefault();
     const inputValue = query;
-    api.fetchMoviesName(inputValue).then(films =>
-      this.setState({
-        movies: [...films],
-      }),
-    );
+    api.fetchMoviesName(inputValue).then(films => setMovie(films));
 
-    this.props.history.push({
-      pathname: this.props.match.url,
-      search: `query=${inputValue}`,
+    history.push({
+      pathname: `${match.url}`,
+      search: `query=${query}`,
+      state: {
+        from: location,
+      },
     });
   }
 
   function onHandleChange(event) {
-    event.preventDefault();
     setQuery(event.target.value.toLowerCase());
   }
 
@@ -47,7 +56,7 @@ export default function MoviesPage() {
             name="query"
             value={query}
             onChange={onHandleChange}
-            autoComplete="off"
+            autoComplete="on"
             autoFocus
             placeholder="Search movie"
           />
