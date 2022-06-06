@@ -32,10 +32,8 @@ export default function MovieList({ movies }) {
           <Li key={id}>
             <Img src={poster_path ? poster : notfound} alt={name} />
             <StyleLink
-              to={{
-                pathname: `/movies/${id}`,
-                state: { from: location },
-              }}
+              to={`${match.url}/${id}`}
+              state={{ from: location.pathname }}
             >
               {title ? title : name}
             </StyleLink>

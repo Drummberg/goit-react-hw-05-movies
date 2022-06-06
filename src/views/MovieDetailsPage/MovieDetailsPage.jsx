@@ -46,7 +46,7 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   function buttonBack() {
-    history.push(location.state.from);
+    history.push(location.state?.from ?? '/');
   }
 
   return (
@@ -73,22 +73,12 @@ export default function MovieDetailsPage() {
       <Links>
         <MenuUl>
           <li>
-            <StyleLink
-              to={{
-                pathname: `${match.url}/cast`,
-                state: { from: location },
-              }}
-            >
+            <StyleLink to={`${match.url}/cast`} state={location.state}>
               Cast
             </StyleLink>
           </li>
           <li>
-            <StyleLink
-              to={{
-                pathname: `${match.url}/reviews`,
-                state: { from: location },
-              }}
-            >
+            <StyleLink to={`${match.url}/reviews`} state={location.state}>
               Reviews
             </StyleLink>
           </li>
