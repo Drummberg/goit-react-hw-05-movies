@@ -22,6 +22,9 @@ export const Li = styled.li`
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.281);
   border-radius: 5px;
   margin-bottom: 10px;
+  &:hover {
+     transform: scale(1.07);
+    cursor: pointer;
 `;
 
 export const Img = styled.img`
