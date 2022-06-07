@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import {
   useParams,
   Route,
-  Switch,
+  Routes,
   useLocation,
-  useRouteMatch,
-  useHistory,
+  useNavigate,
 } from 'react-router-dom';
 import {
   Button,
@@ -36,18 +35,16 @@ export default function MovieDetailsPage() {
   const { title, vote_average, overview, genres, poster_path } = movie;
   const location = useLocation();
   const { movieId } = useParams();
-
-  const match = useRouteMatch();
   const poster = `https://image.tmdb.org/t/p/w300${poster_path}`;
-  const history = useHistory();
+  const [page] = useState(location.state.from);
+  let navigate = useNavigate();
 
   useEffect(() => {
     api.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
-  console.log(location);
   function buttonBack() {
-    history.push(location.state?.from ?? '/');
+    navigate(page);
   }
 
   return (
@@ -74,32 +71,22 @@ export default function MovieDetailsPage() {
       <Links>
         <MenuUl>
           <li>
-            <StyleLink
-              to={{
-                pathname: `${match.url}/cast`,
-                state: { from: location.state.from },
-              }}
-            >
+            <StyleLink to={`cast`} state={{ from: location }}>
               Cast
             </StyleLink>
           </li>
           <li>
-            <StyleLink
-              to={{
-                pathname: `${match.url}/reviews`,
-                state: { from: location.state.from },
-              }}
-            >
+            <StyleLink to={`reviews`} state={{ from: location }}>
               Reviews
             </StyleLink>
           </li>
         </MenuUl>
       </Links>
       <Suspense fallback={<div>Loading...Please wait..</div>}></Suspense>
-      <Switch>
-        <Route path={`${match.path}/cast`} exact component={Casts} />
-        <Route path={`${match.path}/reviews`} component={Reviews} />
-      </Switch>
+      <Routes>
+        <Route path="/cast" exact element={<Casts />} />
+        <Route path="/reviews" element={<Reviews />} />
+      </Routes>
     </>
   );
 }

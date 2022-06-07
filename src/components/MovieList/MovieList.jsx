@@ -7,7 +7,7 @@ import notfound from '../../images/notfound.png';
 export default function MovieList({ movies }) {
   const [query, setQuery] = useState('');
   const location = useLocation();
-
+  console.log(location);
   useEffect(() => {
     if (query) {
       setQuery(query);
@@ -23,12 +23,7 @@ export default function MovieList({ movies }) {
             return (
               <Li key={id}>
                 <Img src={poster_path ? poster : notfound} alt={name} />
-                <StyleLink
-                  to={{
-                    pathname: `/movies/${id}`,
-                    state: { from: location },
-                  }}
-                >
+                <StyleLink to={`/movies/${id}`} state={{ from: location }}>
                   {title ? title : name}
                 </StyleLink>
               </Li>
