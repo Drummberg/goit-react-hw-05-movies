@@ -1,36 +1,27 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  useLocation,
-  useParams,
-  useHistory,
-  useRouteMatch,
-} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import MovieList from '../../components/MovieList/MovieList';
 import api from '../../services/fetchMovies';
 import { Button, Form, MovieCont } from './MoviesPage.styled';
 
 export default function MoviesPage() {
-  const location = useLocation();
+  // const location = useLocation();
   const [query, setQuery] = useState('');
   const [movies, setMovie] = useState([]);
   const history = useHistory();
-  const { movieId } = useParams();
-  const match = useRouteMatch();
 
   useEffect(() => {
-    if (query.trim() === '') {
+    if (query === '') {
       return;
     }
 
     setQuery(query);
-
-    const fetchMoviesName = () => {
-      api.get(`'movies'/${query}`).then(films => setMovie(films));
-    };
-
-    fetchMoviesName();
-  }, [movieId]);
+    //  api.fetchMoviesName(query)
+    //   .then(data => setMovie(data.results))
+    // fetches(location.query);
+    // console.log(location);
+  }, [query]);
 
   function onFindMovies(event) {
     event.preventDefault();
@@ -38,11 +29,10 @@ export default function MoviesPage() {
     api.fetchMoviesName(inputValue).then(films => setMovie(films));
 
     history.push({
-      pathname: `${match.url}`,
-      search: `query=${query}`,
-      state: {
-        from: location,
-      },
+      search: `?query=${query}`,
+      // state: {
+      //   from: location
+      // },
     });
   }
 
@@ -50,12 +40,18 @@ export default function MoviesPage() {
     setQuery(event.target.value.toLowerCase());
   }
 
+  // function fetches(query) {
+  //   api.fetchMoviesName(query)
+  //     .then(data => setMovie(data.results))
+  // }
+
   return (
     <>
       <MovieCont>
         <Form onSubmit={onFindMovies}>
           <input
             type="text"
+            defaultValue={query}
             name="query"
             onChange={onHandleChange}
             autoComplete="on"
